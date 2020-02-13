@@ -1,7 +1,8 @@
-Herramientas alternativas
+#Herramientas alternativas
 
-- Alternativas a Slack
-  1.- SPIKE
+* Alternativas a Slack
+  1. SPIKE
+![Image of SPIKE](https://www.spikenow.com/wp-content/uploads/spike_logo.svg)
     Novedosa herramienta online a la que accedemos con nuestro correo electrónico personal.
     El funcionamiento general de Spike consiste en mostrar los correos electrónicos intercambiados como si se trataran de mensajes instantáneos.
     VENTAJAS:
@@ -11,7 +12,8 @@ Herramientas alternativas
     INCONVENIENTES
       No permite integrar otras aplicaciones.
 
-  2.- Microsoft Teams
+  1. Microsoft Teams
+![Image of Microsoft Teams](https://www.trecebits.com/wp-content/uploads/2020/01/Microsoft-Teams.jpg)
     Plataforma creada por Microsoft enfocada en el trabajo en equipo de las empresas.
     Forma parte del paquete 365 de Microsoft Office y no puede ser configurado individualmente.
     Con él, se pueden hacer videollamadas, vídeos por Twitch, compartir archivos y acceder al Bloc de notas, IPages, Powerpoint y OneNote.
