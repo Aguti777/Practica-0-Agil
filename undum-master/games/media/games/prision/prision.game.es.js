@@ -43,7 +43,16 @@ undum.game.situations = {
         <p><a href='ayudarprisionero'>ayudar a los prisioneros</a> o <a href='ayudarguarda'>ayudar al guarda</a> <b>SUERTE EN TUS FUTURAS DECISIONES</b></p>"
     ),
     ayudarprisionero: new undum.SimpleSituation(
-        "<p>AYUDAS AL PRISIONERO</p>"
+        "<p>Has decidido ayudar al prisionero y dejar morir al guardia, por lo que todos los prisioneros se vuelven en tu lado y definitivamente debes evitar los guardias.</p>\
+         <p>Ya que el guardia esta muerto de das cuenta que los prisioneros estan en plan de fuga, solo te da tiempo para <a href='./huircelda'>salir corriendo hacia tu celda</a> o <a href='./buscarcuerpo'>buscar utiles en el cuerpo del guardia.</a> <p>"
+        ,{
+            actions: {
+                "huircelda": function(character, system, action){
+                    system.setQuality("collar", true);
+                    system.doLink("huircelda");
+                }
+            }
+        }
     ),
     ayudarguarda: new undum.SimpleSituation(
         "<p>Has decidido ayudar al guarda y dejar morir al prisionero, por lo que todos los prisioneros se vuelven en tu contra y a partir de ahora deberá evitar encontrarte con ellos, si no quieres acabar mal...</p>\
@@ -64,6 +73,26 @@ undum.game.situations = {
         <p>Por lo que decides salir corriendo antes de que alcancen a verte los otros presos.</p>\
         <p>Tras varios minutos corriendo llegas a una puerta eléctrica que se encuentra cerrada.</p>\
         <p>No puedes perder más tiempo y debes tomar una importante decisión <a href='finalfelizpuertacollar'>observar detenidamente la puerta</a> o <a href='huirsalida'>seguir corriendo</a>.</p>"
+    ),
+    buscarcuerpo: new undum.SimpleSituation(
+        "<p>Al buscar el cuerpo, ves que el guardia tiene varios objetos que podrian ser utiles.</p>\
+        <p>Te encuentras una <a href='./porra'>porra</a>, unas <a href='./esposas'>esposas</a> y una <a href='./pistola'>pistola</a> pero solo puedes elegir una de ellas.</p>"
+        ,{
+            actions: {
+                "porra": function(character, system, action){
+                    system.setQuality("porra", true);
+                    system.doLink("guardamuertorobado");
+                },
+                "esposas": function(character, system, action){
+                    system.setQuality("esposas", true);
+                    system.doLink("guardamuertorobado");
+                },
+                "pistola": function(character, system, action){
+                    system.setQuality("pistola", true);
+                    system.doLink("guardamuertorobado");
+                }
+            }
+        }
     ),
     huirsalida: new undum.SimpleSituation(
         "<p>Has decidido salir corriendo en busca de una salida pero al cruzar el pasillo te encuentras con los demás prisioneros que te atacan por haberlos traicionado anteriormente.</p>\
@@ -93,6 +122,9 @@ undum.game.situations = {
     guardarobado: new undum.SimpleSituation(
         "<p>Tras robar al guarda se produce un encontronazo entre guardas y reclusos de la cácerl, por lo que debes tomar la decisión de si te escondes en la <a href='cocina'>cocina</a> o intentas escapar por una <a href='puerta'>puerta</a> que da directamente al exterior de la cárcel...</p>"
     ),
+    guardamuertorobado: new undum.SimpleSituation(
+        "<p>Ya que has robado el guardia, tienes que decidir si quieres <a href='cocinaprisioneros'>ir con los prisioneros a la cocina</a> o <a href='fugarsolo'>salir por otra puerta solo.</a> </p>"
+    ),
     cocina: new undum.SimpleSituation(
         "<p>Ya estás a salvo en la cocina pero de pronto...</p>\
         <p>Entran varios prisionero que intentan huir del enfrentamiento con los guardas.</p>"
@@ -105,6 +137,30 @@ undum.game.situations = {
                         }
             }
         }
+    ),
+        cocinaprisioneros: new undum.SimpleSituation(
+        "<p>LLegas a la cocina con los prisioneros y todos empiezan a buscar cuchillos y comida. </p>\
+        <p>Abres un mueble con un poco de comida, del que puedes coger un poco de <a href='./pan'>pan</a>, una <a href='./manzana'>manzana</a> o una <a href='./lata'>lata de conserva</a></p></p>"
+        ,{
+            {
+            actions: {
+                "pan": function(character, system, action){
+                    system.setQuality("pan", true);
+                    system.doLink("salidacocina");
+                },
+                "manzana": function(character, system, action){
+                    system.setQuality("manzana", true);
+                    system.doLink("salidacocina");
+                },
+                "lata": function(character, system, action){
+                    system.setQuality("lata", true);
+                    system.doLink("salidacocina");
+                }
+            }
+        }
+    ),
+     salidacocina.SimpleSituation(
+        "<p>Ya que tienes todo lo que necesitas de la cocina, es hora de salir pero tiene que decidir si quieres <a href='cocinasolo'>salir de la cocina solo</a> o <a href='cocinagrupo'>salir de la con el grupo.</a><p>"
     ),
     cocinamuere: new undum.SimpleSituation(
         "<p>Desgraciadamente no puedes hacerles frente y te golpean fuertemente en la cabeza dejándote inconsciente y siendo arrestado después por los guardas de la cárcel...</p>\
