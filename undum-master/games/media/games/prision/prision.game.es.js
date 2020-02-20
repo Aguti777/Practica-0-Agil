@@ -49,7 +49,7 @@ undum.game.situations = {
             actions: {
                 "huircelda": function(character, system, action){
                     system.setQuality("collar", true);
-                    system.doLink("huircelda");
+                    system.doLink("huirceldaprisionero");
                 }
             }
         }
@@ -67,6 +67,34 @@ undum.game.situations = {
             }
         }
     ),
+    huirceldaprisionero: new undum.SimpleSituation(
+        "<p>Has decidido huir hacia tu celda en busca del collar de tu hija, el último recuerdo que te queda de ella...</p>\
+        <p>Mientras recuerdas los buenos momentos pasados junto a tu hija empiezan a escucharse fuertes pasos cada vez más cerca de tu celda</p>\
+        <p>Por lo que decides salir corriendo a <a href='cocinaprisioneros'>la cocina con los otros</a> o <a href='fugarsolo'>solo por otra salida </a>.</p>"
+    ),  
+    fugarsolo: new undum.SimpleSituation(
+        "<p>Al correr por la puerta entras a un pasillo y te encuentras con un guardia armado<p>"
+        if(character.qualities.pistola)
+                    system.doLink("matarguardiaopcion");
+                } else {
+                    system.doLink("capturadoguardia");
+                }
+        )
+     capturadoguardia: new undum.SimpleSituation(
+        "<p>Como vienes sin arma, el cuardia te detiene y quedas capturado.<p>\
+          <h3>FIN DEL JUEGO</h3>"
+        )
+     matarguardiaopcion: new undum.SimpleSituation(
+        "<p>El guardia intenta detenerte, puedes <a href='capturadoguardia'>dejar que te detengan</a> o <a href='matarguardia2'>disparar al guardia con la pistola que tienes.</a><p>"
+        )
+     matarguardia2: : new undum.SimpleSituation(
+         "<p>Has matado el guardia pero los disparos seguramente han llamado la atencion de los guardias.<p>\
+          <p>Puedes <a href='muertoesculcando'>esculcar el cuerpo</a> o <a href='puertapistola'>buscar una salida.</a><p>"
+         )
+     muertoesculcando: new undum.SimpleSituation(
+        "<p>Mientras que esculcas el cuerpo, del pasillo sale un grupo de 6 guardias armadas y te disparan al ven que tienes un arma, quedas muerto...<p>\
+          <h3>FIN DEL JUEGO</h3>"
+        )
     huircelda: new undum.SimpleSituation(
         "<p>Has decidido huir hacia tu celda en busca del collar de tu hija, el último recuerdo que te queda de ella...</p>\
         <p>Mientras recuerdas los buenos momentos pasados junto a tu hija empiezan a escucharse fuertes pasos cada vez más cerca de tu celda</p>\
@@ -75,7 +103,7 @@ undum.game.situations = {
         <p>No puedes perder más tiempo y debes tomar una importante decisión <a href='finalfelizpuertacollar'>observar detenidamente la puerta</a> o <a href='huirsalida'>seguir corriendo</a>.</p>"
     ),
     buscarcuerpo: new undum.SimpleSituation(
-        "<p>Al buscar el cuerpo, ves que el guardia tiene varios objetos que podrian ser utiles.</p>\
+        "<p>Al esculcar el cuerpo, ves que el guardia tiene varios objetos que podrian ser utiles.</p>\
         <p>Te encuentras una <a href='./porra'>porra</a>, unas <a href='./esposas'>esposas</a> y una <a href='./pistola'>pistola</a> pero solo puedes elegir una de ellas.</p>"
         ,{
             actions: {
@@ -160,7 +188,7 @@ undum.game.situations = {
         }
     ),
      salidacocina.SimpleSituation(
-        "<p>Ya que tienes todo lo que necesitas de la cocina, es hora de salir pero tiene que decidir si quieres <a href='cocinasolo'>salir de la cocina solo</a> o <a href='cocinagrupo'>salir de la con el grupo.</a><p>"
+        "<p>Ya que tienes todo lo que necesitas de la cocina, es hora de salir pero tiene que decidir si quieres <a href='puerta'>salir de la cocina solo</a> o <a href='cocinamuertegrupo'>salir de la con el grupo.</a><p>"
     ),
     cocinamuere: new undum.SimpleSituation(
         "<p>Desgraciadamente no puedes hacerles frente y te golpean fuertemente en la cabeza dejándote inconsciente y siendo arrestado después por los guardas de la cárcel...</p>\
@@ -186,21 +214,35 @@ undum.game.situations = {
             }
         }
     ),
+    cocinamuertegrupo: new undum.SimpleSituation(
+        "<p>Al salir de la cocina con el grupo, todos siguen por el pasillo y al dal la vuelta se encuentran con varios guardias armados con pistolas de alta calibre, an sido capturados.</p>\
+        <h2>FIN DEL JUEGO</h2>"
+    ),    
     puerta: new undum.SimpleSituation(
         "<p>Por fín, te encuentras frente a la puerta que da al exterior.</p>"
         ,{
             enter: function( character, system, from ) {
                 if(character.qualities.lata){
                     system.doLink("cocinapuerta");
-                } else {
+                } else if(character.qualities.collar){
+                    system.doLink("finalfelizpuertacollar");
+                }
+                else{
                     system.doLink("puertamuere");
                 }
             }
         }
     ),
     cocinapuerta: new undum.SimpleSituation(
-        "<p>Tras observar detenidamente la puerta te das cuenta de que existe una posibilidad de realizar un puente con la lata de conservas y abrirla.</p>\
+        "<p>Por fín, te encuentras frente a la puerta que da al exterior. Tras observar detenidamente la puerta te das cuenta de que existe una posibilidad de realizar un puente con la lata de conservas y abrirla.</p>\
         <p>Así que decides utilizar la lata consiguiendo abrir la puerta y salir al exterior de la cárcel.</p>\
+        <p>Aprovechando el descontrol de los guardas sales corriendo hacia un coche que se encuentra abierto y con las llaves puestas, consiguiendo así escapar y huir en búsqueda de tu familia...</p>\\n\
+        <h2>¡ENHORABUENA HAS CONSEGUIDO ESCAPAR!</h2>\
+        <h3>FIN DEL JUEGO</h3>"
+    ),
+    pistolapuerta: new undum.SimpleSituation(
+        "<p>Tras observar detenidamente la puerta te das cuenta de que existe una posibilidad de realizar un puente con la pistola y abrirla.</p>\
+        <p>Así que decides utilizar la pistola consiguiendo abrir la puerta y salir al exterior de la cárcel.</p>\
         <p>Aprovechando el descontrol de los guardas sales corriendo hacia un coche que se encuentra abierto y con las llaves puestas, consiguiendo así escapar y huir en búsqueda de tu familia...</p>\\n\
         <h2>¡ENHORABUENA HAS CONSEGUIDO ESCAPAR!</h2>\
         <h3>FIN DEL JUEGO</h3>"
