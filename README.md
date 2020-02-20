@@ -11,7 +11,7 @@ Inconvenientes: Hay que mantener orden o si no se puede volver confuso, ademas q
 
 2. Jira
 
-![Image of JIRA](https://lh3.googleusercontent.com/proxy/d0Ssqo6HCPyyPDKOcfPVUmh71neoaTA1M519hTCx1aFJgiRnRQDrsIEhV0SpebAf0u45ajxSaPdTdxuuILOyFcXmQeE7BpgUobi-hKx4VqfDsO1SYPY)
+![Image of JIRA](https://jirad.uv.es/images/atlassian-jira-logo-large.png)
 
 Ventajas: Es un programa muy bien organizado que tiene todas las facultades y opciones para los trabajos en grupo. Viene de Atlassian entonces tiene buena syncronization con otros programas de trabajo como BitBucket. Es muy bueno para empresas grandes.
 
